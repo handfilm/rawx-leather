@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registry — RAWx LAB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grain"></div>
+<div class="overlay" id="overlay"></div>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="side-top">
+      <a href="index.html" class="side-logo">
+        <span class="side-logo-mark">RX</span>
+        <span class="side-logo-full">RAW<em>x</em><br>LAB</span>
+      </a>
+      <div class="side-tagline">Raw Hide Registry</div>
+    </div>
+    <nav class="side-nav">
+      <div class="side-nav-label">Categories</div>
+      <div id="side-nav-list"></div>
+    </nav>
+    <div class="side-bottom">
+      <div class="side-stat-row"><span>SKUs</span><b id="stat-total">0</b></div>
+      <div class="side-stat-row"><span>Pillars</span><b id="stat-cats">0</b></div>
+      <button class="side-cart-btn"><span>Board</span><span data-cart-count>0</span></button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="topbar-menu" id="menu-toggle" aria-label="Toggle navigation">≡</button>
+      <div class="topbar-crumb">/ <b id="crumb-cat">REGISTRY</b></div>
+      <div class="topbar-right"><span>DHAKA WORKSHOP</span></div>
+    </header>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="eyebrow">Full Catalogue</div>
+        <h1 class="section-title" id="page-title">Raw Hide Registry</h1>
+        <p id="page-sub" style="max-width:560px;margin-top:8px;">সব ক্যাটাগরির প্রোডাক্ট এখানে। ক্যাটাগরি ফিল্টার, সার্চ বা সর্ট ব্যবহার করুন।</p>
+
+        <div class="chip-row" id="chip-row"></div>
+
+        <div class="toolbar">
+          <span class="toolbar-count" id="result-count">0 items</span>
+          <div class="toolbar-right">
+            <input class="field" type="search" id="search-input" placeholder="SEARCH NAME / MATERIAL / COLOR" autocomplete="off">
+            <select class="field" id="sort-select">
+              <option value="default">SORT: DEFAULT</option>
+              <option value="price-asc">PRICE: LOW → HIGH</option>
+              <option value="price-desc">PRICE: HIGH → LOW</option>
+              <option value="az">NAME: A–Z</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="tag-grid" id="asset-grid"></div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-col">
+          <div class="footer-brand-mark">RAW<em>x</em> LAB</div>
+          <p>Shop 4/33 (Lift 3), Eastern Plaza Shopping Complex, Hatirpool, Dhaka 1205</p>
+          <p>rawxlab@example.com</p>
+        </div>
+        <div class="footer-col"><h4>Shop</h4>
+          <a href="shop.html?cat=bifold">Bifold</a>
+          <a href="shop.html?cat=trifold">Trifold</a>
+          <a href="shop.html?cat=bag">Bag</a>
+          <a href="shop.html?cat=trekon">Trekon</a>
+        </div>
+        <div class="footer-col"><h4>Lab</h4>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="shop.html">Full Registry</a>
+        </div>
+        <div class="footer-col"><h4>Social</h4>
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">WhatsApp</a>
+        </div>
+      </div>
+      <div class="wrap footer-bottom">
+        <span>© 2026 RAWx LAB — Prototype / Not a live store</span>
+        <span>Brutalist system v1.0</span>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+  const params = new URLSearchParams(location.search);
+  let activeCat = params.get("cat") || "all";
+
+  rawxInitChrome(activeCat === "all" ? null : activeCat);
+
+  const gridEl = document.getElementById("asset-grid");
+  const chipRow = document.getElementById("chip-row");
+  const searchInput = document.getElementById("search-input");
+  const sortSelect = document.getElementById("sort-select");
+
+  function buildChips(){
+    const chips = [{id:"all", name:"All"}].concat(RAWX_CATEGORIES.map(c => ({id:c.id, name:c.name})));
+    chipRow.innerHTML = chips.map(c => `
+      <button class="chip${c.id===activeCat ? ' active':''}" data-cat="${c.id}">${c.name}</button>
+    `).join("");
+    chipRow.querySelectorAll(".chip").forEach(btn => {
+      btn.addEventListener("click", () => {
+        activeCat = btn.dataset.cat;
+        chipRow.querySelectorAll(".chip").forEach(b => b.classList.toggle("active", b===btn));
+        updateCrumb();
+        render();
+      });
+    });
+  }
+
+  function categoryMatches(catId, filterId){
+    if(filterId === "all") return true;
+    if(catId === filterId) return true;
+    const parent = RAWX_CATEGORIES.find(c => (c.children||[]).some(s => s.id === catId));
+    return parent && parent.id === filterId;
+  }
+
+  function updateCrumb(){
+    const label = activeCat === "all" ? "REGISTRY" : rawxCategoryLabel(activeCat).toUpperCase();
+    document.getElementById("crumb-cat").textContent = label;
+    document.getElementById("page-title").textContent = activeCat === "all" ? "Raw Hide Registry" : rawxCategoryLabel(activeCat);
+    const cat = RAWX_CATEGORIES.find(c => c.id === activeCat);
+    document.getElementById("page-sub").textContent = cat ? cat.tagline : "সব ক্যাটাগরির প্রোডাক্ট এখানে। ক্যাটাগরি ফিল্টার, সার্চ বা সর্ট ব্যবহার করুন।";
+  }
+
+  function render(){
+    let list = RAWX_PRODUCTS.filter(p => categoryMatches(p.category, activeCat));
+    const q = searchInput.value.trim().toLowerCase();
+    if(q){
+      list = list.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.material.toLowerCase().includes(q) ||
+        p.colorway.toLowerCase().includes(q)
+      );
+    }
+    const sort = sortSelect.value;
+    if(sort === "price-asc") list = [...list].sort((a,b) => a.price - b.price);
+    if(sort === "price-desc") list = [...list].sort((a,b) => b.price - a.price);
+    if(sort === "az") list = [...list].sort((a,b) => a.name.localeCompare(b.name));
+
+    document.getElementById("result-count").textContent = `${list.length} item${list.length===1?'':'s'}`;
+    rawxRenderGrid(gridEl, list);
+  }
+
+  buildChips();
+  updateCrumb();
+  render();
+  searchInput.addEventListener("input", render);
+  sortSelect.addEventListener("change", render);
+</script>
+</body>
+</html>

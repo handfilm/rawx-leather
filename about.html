@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Workshop — RAWx LAB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grain"></div>
+<div class="overlay" id="overlay"></div>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="side-top">
+      <a href="index.html" class="side-logo">
+        <span class="side-logo-mark">RX</span>
+        <span class="side-logo-full">RAW<em>x</em><br>LAB</span>
+      </a>
+      <div class="side-tagline">Raw Hide Registry</div>
+    </div>
+    <nav class="side-nav">
+      <div class="side-nav-label">Categories</div>
+      <div id="side-nav-list"></div>
+    </nav>
+    <div class="side-bottom">
+      <div class="side-stat-row"><span>SKUs</span><b id="stat-total">0</b></div>
+      <div class="side-stat-row"><span>Pillars</span><b id="stat-cats">0</b></div>
+      <button class="side-cart-btn"><span>Board</span><span data-cart-count>0</span></button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="topbar-menu" id="menu-toggle" aria-label="Toggle navigation">≡</button>
+      <div class="topbar-crumb">/ <b>ABOUT</b></div>
+      <div class="topbar-right"><span>DHAKA WORKSHOP</span></div>
+    </header>
+
+    <section class="about-hero">
+      <div class="wrap">
+        <div class="eyebrow">The Workshop</div>
+        <h1 class="section-title">Every Hide,<br>Logged Before It's Cut.</h1>
+        <p class="about-lead">RAWx LAB একটা ঢাকা-বেইজড ফুল-গ্রেইন লেদার ওয়ার্কশপ। আমরা প্রতিটা প্রোডাক্টকে একটা "specimen" হিসেবে ট্রিট করি — নাম, batch code, উপকরণ, আর origin সহ রেজিস্টার করা — যাতে প্রতিটা পিসের একটা ট্রেসেবল হিস্ট্রি থাকে, ঠিক ল্যাবের মতো।</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">What We Stand On</div><h2 class="section-title">Three Fixed Rules</h2></div>
+        </div>
+        <div class="value-grid">
+          <div class="value-cell"><b>01 / No Shortcuts on Hide</b><p>শুধু full-grain cowhide আর vegetable-tanned লেদার — কোনো bonded বা PU মিক্স না।</p></div>
+          <div class="value-cell"><b>02 / One Cutter, One Batch</b><p>প্রতিটা ব্যাচ একই কাটিং টেবিলে, একই হাতে ফিনিশড হয় — কনসিসটেন্সি রাখতে।</p></div>
+          <div class="value-cell"><b>03 / Registry Over Guesswork</b><p>প্রতিটা SKU-র একটা ইউনিক batch code, যা দিয়ে ম্যাটেরিয়াল সোর্স পর্যন্ত ট্রেস করা যায়।</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tight">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">Process</div><h2 class="section-title">From Hide to Registry</h2></div>
+        </div>
+        <div class="timeline">
+          <div class="timeline-row"><b>STAGE 01</b><h3>Source & Inspect</h3><p>রেপুটেড ট্যানারি থেকে ফুল-গ্রেইন হাইড সংগ্রহ, প্রতিটা শিটের গ্রেইন-কোয়ালিটি হাতে চেক করা হয়।</p></div>
+          <div class="timeline-row"><b>STAGE 02</b><h3>Cut & Tag</h3><p>প্যাটার্ন অনুযায়ী কাটিং, প্রতিটা পিসে একটা ইউনিক batch code অ্যাসাইন করা হয়।</p></div>
+          <div class="timeline-row"><b>STAGE 03</b><h3>Stitch & Finish</h3><p>হ্যান্ড-ফিনিশড এজ, সলিড হার্ডওয়্যার, ফাইনাল কোয়ালিটি চেক।</p></div>
+          <div class="timeline-row"><b>STAGE 04</b><h3>Register & Ship</h3><p>রেজিস্ট্রিতে লগ করে প্যাক ও শিপ করা হয় — batch code সহ।</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="border-top:1px solid var(--line);text-align:center;">
+      <div class="wrap">
+        <h2 class="section-title">Browse the Full Registry</h2>
+        <p style="max-width:520px;margin:12px auto 24px;">১০টা ক্যাটাগরি জুড়ে সব SKU দেখুন — batch code, উপকরণ আর দাম সহ।</p>
+        <a href="shop.html" class="btn btn-primary">Open Registry <span class="arrow">→</span></a>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-col">
+          <div class="footer-brand-mark">RAW<em>x</em> LAB</div>
+          <p>Shop 4/33 (Lift 3), Eastern Plaza Shopping Complex, Hatirpool, Dhaka 1205</p>
+          <p>rawxlab@example.com</p>
+        </div>
+        <div class="footer-col"><h4>Shop</h4>
+          <a href="shop.html?cat=bifold">Bifold</a>
+          <a href="shop.html?cat=trifold">Trifold</a>
+          <a href="shop.html?cat=bag">Bag</a>
+          <a href="shop.html?cat=trekon">Trekon</a>
+        </div>
+        <div class="footer-col"><h4>Lab</h4>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="shop.html">Full Registry</a>
+        </div>
+        <div class="footer-col"><h4>Social</h4>
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">WhatsApp</a>
+        </div>
+      </div>
+      <div class="wrap footer-bottom">
+        <span>© 2026 RAWx LAB — Prototype / Not a live store</span>
+        <span>Brutalist system v1.0</span>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>rawxInitChrome(null);</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — RAWx LAB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grain"></div>
+<div class="overlay" id="overlay"></div>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="side-top">
+      <a href="index.html" class="side-logo">
+        <span class="side-logo-mark">RX</span>
+        <span class="side-logo-full">RAW<em>x</em><br>LAB</span>
+      </a>
+      <div class="side-tagline">Raw Hide Registry</div>
+    </div>
+    <nav class="side-nav">
+      <div class="side-nav-label">Categories</div>
+      <div id="side-nav-list"></div>
+    </nav>
+    <div class="side-bottom">
+      <div class="side-stat-row"><span>SKUs</span><b id="stat-total">0</b></div>
+      <div class="side-stat-row"><span>Pillars</span><b id="stat-cats">0</b></div>
+      <button class="side-cart-btn"><span>Board</span><span data-cart-count>0</span></button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="topbar-menu" id="menu-toggle" aria-label="Toggle navigation">≡</button>
+      <div class="topbar-crumb">/ <b>CONTACT</b></div>
+      <div class="topbar-right"><span>DHAKA WORKSHOP</span></div>
+    </header>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="eyebrow">Get in Touch</div>
+        <h1 class="section-title" style="margin-bottom:26px;">Sourcing & Inquiries</h1>
+
+        <div class="contact-grid">
+          <div class="contact-info">
+            <div class="contact-row"><b>Studio</b><span>Mirpur 12, Dhaka 1216, Bangladesh</span></div>
+            <div class="contact-row"><b>Phone</b><span>+880 1974518600</span></div>
+            <div class="contact-row"><b>Email</b><span>sales@handsandhead.com</span></div>
+            <div class="contact-row"><b>WhatsApp</b><span>+880 1974518600</span></div>
+            <div class="contact-row"><b>Hours</b><span>Sat–Thu, 11:00 – 20:00</span></div>
+            <p class="form-note">এই কন্টাক্ট ইনফো প্লেসহোল্ডার — লাইভ সাইটে বসানোর আগে আসল ফোন/ইমেইল/ঠিকানা দিয়ে রিপ্লেস করুন।</p>
+          </div>
+          <div class="contact-form">
+            <form id="inquiry-form">
+              <div class="form-row">
+                <label>Name</label>
+                <input type="text" id="inq-name" placeholder="YOUR NAME" required>
+              </div>
+              <div class="form-row">
+                <label>Email</label>
+                <input type="email" id="inq-email" placeholder="YOU@EMAIL.COM" required>
+              </div>
+              <div class="form-row">
+                <label>Message</label>
+                <textarea id="inq-msg" rows="5" placeholder="MOQ, PRODUCT, TIMELINE, ETC."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Send Inquiry <span class="arrow">→</span></button>
+              <p class="form-note">প্রোটোটাইপ ফর্ম — এখনো কোনো ব্যাকএন্ড/ইমেইল সার্ভিসের সাথে কানেক্টেড না। সাবমিট করলে শুধু একটা ডেমো toast দেখাবে।</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-col">
+          <div class="footer-brand-mark">RAW<em>x</em> LAB</div>
+          <p>Mirpur 12, Dhaka 1216</p>
+          <p>sales@handsandhead.com</p>
+        </div>
+        <div class="footer-col"><h4>Shop</h4>
+          <a href="shop.html?cat=bifold">Bifold</a>
+          <a href="shop.html?cat=trifold">Trifold</a>
+          <a href="shop.html?cat=bag">Bag</a>
+          <a href="shop.html?cat=trekon">Trekon</a>
+        </div>
+        <div class="footer-col"><h4>Lab</h4>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="shop.html">Full Registry</a>
+        </div>
+        <div class="footer-col"><h4>Social</h4>
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">WhatsApp</a>
+        </div>
+      </div>
+      <div class="wrap footer-bottom">
+        <span>© 2026 RAWx LAB — Prototype / Not a live store</span>
+        <span>Brutalist system v1.0</span>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+  rawxInitChrome(null);
+  document.getElementById("inquiry-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    rawxToast("অনুরোধ পাঠানো হয়েছে (ডেমো) — ধন্যবাদ!");
+    e.target.reset();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spec Sheet — RAWx LAB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grain"></div>
+<div class="overlay" id="overlay"></div>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="side-top">
+      <a href="index.html" class="side-logo">
+        <span class="side-logo-mark">RX</span>
+        <span class="side-logo-full">RAW<em>x</em><br>LAB</span>
+      </a>
+      <div class="side-tagline">Raw Hide Registry</div>
+    </div>
+    <nav class="side-nav">
+      <div class="side-nav-label">Categories</div>
+      <div id="side-nav-list"></div>
+    </nav>
+    <div class="side-bottom">
+      <div class="side-stat-row"><span>SKUs</span><b id="stat-total">0</b></div>
+      <div class="side-stat-row"><span>Pillars</span><b id="stat-cats">0</b></div>
+      <button class="side-cart-btn"><span>Board</span><span data-cart-count>0</span></button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="topbar-menu" id="menu-toggle" aria-label="Toggle navigation">≡</button>
+      <div class="topbar-crumb">/ REGISTRY / <b id="crumb-name">ITEM</b></div>
+      <div class="topbar-right"><span>DHAKA WORKSHOP</span></div>
+    </header>
+
+    <section class="section" id="product-section">
+      <div class="wrap">
+        <a href="shop.html" class="btn btn-ghost" style="margin-bottom:26px;">← Back to Registry</a>
+        <div class="spec-sheet" id="spec-sheet"></div>
+
+        <div class="related-row">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">Same Category</div>
+              <h2 class="section-title">Related Batch</h2>
+            </div>
+          </div>
+          <div class="tag-grid" id="related-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-col">
+          <div class="footer-brand-mark">RAW<em>x</em> LAB</div>
+          <p>Shop 4/33 (Lift 3), Eastern Plaza Shopping Complex, Hatirpool, Dhaka 1205</p>
+          <p>rawxlab@example.com</p>
+        </div>
+        <div class="footer-col"><h4>Shop</h4>
+          <a href="shop.html?cat=bifold">Bifold</a>
+          <a href="shop.html?cat=trifold">Trifold</a>
+          <a href="shop.html?cat=bag">Bag</a>
+          <a href="shop.html?cat=trekon">Trekon</a>
+        </div>
+        <div class="footer-col"><h4>Lab</h4>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="shop.html">Full Registry</a>
+        </div>
+        <div class="footer-col"><h4>Social</h4>
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">WhatsApp</a>
+        </div>
+      </div>
+      <div class="wrap footer-bottom">
+        <span>© 2026 RAWx LAB — Prototype / Not a live store</span>
+        <span>Brutalist system v1.0</span>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+  const params = new URLSearchParams(location.search);
+  const id = params.get("id");
+  const product = RAWX_PRODUCTS.find(p => p.id === id) || RAWX_PRODUCTS[0];
+
+  rawxInitChrome(null);
+
+  document.getElementById("crumb-name").textContent = product.name.toUpperCase();
+  document.title = `${product.name} — RAWx LAB`;
+
+  const [sw1, sw2] = product.swatch;
+  document.getElementById("spec-sheet").innerHTML = `
+    <div class="spec-media" style="--sw1:${sw1};--sw2:${sw2}">
+      <span class="spec-media-tag">${product.batch}</span>
+    </div>
+    <div class="spec-body">
+      <div class="spec-batch">BATCH ${product.batch} // ${rawxCategoryLabel(product.category).toUpperCase()}</div>
+      <h1 class="spec-name">${product.name}</h1>
+      <div class="spec-price">৳${product.price.toLocaleString('en-IN')}</div>
+      <table class="spec-table">
+        <tr><td>Material</td><td>${product.material}</td></tr>
+        <tr><td>Colorway</td><td>${product.colorway}</td></tr>
+        <tr><td>Category</td><td>${rawxCategoryLabel(product.category)}</td></tr>
+        <tr><td>Origin</td><td>${product.origin}</td></tr>
+        <tr><td>Batch Code</td><td>${product.batch}</td></tr>
+      </table>
+      <button class="btn btn-primary btn-block" onclick="rawxAddToCart('${product.name.replace(/'/g,"")}')">Add to Sourcing Board <span class="arrow">→</span></button>
+      <p class="spec-note">এটি একটি প্রোটোটাইপ প্রোডাক্ট পেজ — real checkout নেই। "Add to Sourcing Board" শুধু ডেমো cart কাউন্টার আপডেট করে।</p>
+    </div>
+  `;
+
+  const related = RAWX_PRODUCTS.filter(p => p.category === product.category && p.id !== product.id).slice(0,4);
+  rawxRenderGrid(document.getElementById("related-grid"), related.length ? related : RAWX_PRODUCTS.filter(p=>p.id!==product.id).slice(0,4));
+</script>
+</body>
+</html>
